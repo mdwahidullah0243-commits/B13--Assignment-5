@@ -22,9 +22,74 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body>
-    <!-- Test CDN purpose -->
-    <h1 class="bg-pink-700 text-2xl font-semibold">I am from login page</h1>
+<body class="min-h-screen max-w-md mx-auto 
+        bg-white 
+        shadow-md 
+        rounded-xl 
+        my-10
+        p-8
+    ">
+
+    <section class="space-y-7">
+
+        <!-- Part: 1 -->
+        <div class="text-center space-y-4">
+            <img class="mx-auto" src="./assets/github-logo.png" alt="">
+
+            <div>
+                <h2 class="text-[#1F2937] text-2xl font-semibold">
+                    GitHub Issues Tracker
+                </h2>
+                <p class="text-[#64748B] text-base font-normal">
+                    Sign in to manage your issues
+                </p>
+            </div>
+        </div>
+
+        <!-- Part: 2 -->
+        <div>
+            <form class="space-y-5">
+                <div class="space-y-2">
+                    <label class="block text-[#1F2937] text-lg font-semibold">Username</label>
+                    <input type="text" placeholder="Enter Username"
+                        class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
+                    <p class="text-[#4A00FF] font-normal">Default: admin</p>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-[#1F2937] text-lg font-semibold">Password</label>
+                    <input type="password" placeholder="Enter Password"
+                        class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
+                    <p class="text-[#4A00FF] font-normal">Default: admin123</p>
+                </div>
+
+                <button class="btn btn-primary w-full text-lg">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Part: 3 -->
+        <div class="grid grid-cols-12 items-center">
+            <span class="border-t border-t-[#b8b8b8] col-span-5"></span>
+            <span class="col-span-2 text-center">OR</span>
+            <span class="border-t border-t-[#b8b8b8] col-span-5"></span>
+        </div>
+
+        <!-- Part: 4 -->
+        <div class="text-center space-y-2">
+            <h3 class="text-[#2a2d33] text-lg font-normal">Demo Credentials:</h3>
+
+            <div class="text-[#1F2937] font-normal bg-[#F8FAFC] rounded-lg py-8">
+                <p class="">
+                    <span class="text-lg font-semibold">Username:</span> admin
+                </p>
+                <p>
+                    <span class="text-lg font-semibold">Password:</span> admin123
+                </p>
+            </div>
+        </div>
+
+    </section>
+
 </body>
 
 </html>
