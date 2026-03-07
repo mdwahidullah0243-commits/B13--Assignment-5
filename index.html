@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- title and favicon -->
-    <title>Login Page</title>
+    <title>Login Page || GitHub Issues Tracker</title>
     <link rel="shortcut icon" href="./assets/github-icon-1.png" type="image/x-icon">
 
     <!-- font integration -->
@@ -46,25 +46,29 @@
             </div>
         </div>
 
-        <!-- Part: 2 -->
-        <div>
-            <form class="space-y-5">
-                <div class="space-y-2">
-                    <label class="block text-[#1F2937] text-lg font-semibold">Username</label>
-                    <input type="text" placeholder="Enter Username"
-                        class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
-                    <p class="text-[#4A00FF] font-normal">Default: admin</p>
-                </div>
+        <!-- Part: 2 => form -->
+        <div class="space-y-5">
 
-                <div class="space-y-2">
-                    <label class="block text-[#1F2937] text-lg font-semibold">Password</label>
-                    <input type="password" placeholder="Enter Password"
-                        class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
-                    <p class="text-[#4A00FF] font-normal">Default: admin123</p>
-                </div>
+            <!-- Username -->
+            <div class="space-y-2">
+                <label class="block text-[#1F2937] text-lg font-semibold">Username</label>
+                <input id="username-input" type="text" placeholder="Enter Username"
+                    class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
+                <p class="text-[#4A00FF] font-normal">Default: admin</p>
+            </div>
 
-                <button class="btn btn-primary w-full text-lg">Sign In</button>
-            </form>
+            <!-- Password -->
+            <div class="space-y-2">
+                <label class="block text-[#1F2937] text-lg font-semibold">Password</label>
+                <input id="password-input" type="password" placeholder="Enter Password"
+                    class="block btn cursor-text text-left w-full text-[#2a2d33] text-base font-medium p-3 rounded-xl">
+                <p class="text-[#4A00FF] font-normal">Default: admin123</p>
+            </div>
+
+            <!-- Sign In button -->
+            <button id="login-btn" class="btn btn-primary w-full text-lg">
+                Sign In
+            </button>
         </div>
 
         <!-- Part: 3 -->
@@ -89,6 +93,10 @@
         </div>
 
     </section>
+
+
+    <script src="./machine.js"></script>
+    <script src="./login.js"></script>
 
 </body>
 
