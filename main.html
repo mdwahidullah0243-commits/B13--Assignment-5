@@ -20,10 +20,84 @@
     <!-- daisyUI and Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <h1 class="bg-purple-600 text-2xl font-semibold">This is main page and title is GitHub Issues Tracker</h1>
+    <header class="bg-base-100 shadow-sm">
+        <div class="nav-container navbar w-11/12 mx-auto">
+            <div class="flex-1">
+                <a class="logo btn btn-ghost text-xl sm:gap-3">
+                    <img class="h-full" src="./assets/github-logo.png" alt="">
+                    <span class="text-left sm:text-center">GitHub Issues Tracker</span>
+                </a>
+            </div>
+
+            <div class="search-box flex gap-2 sm:max-md:flex-col-reverse items-end">
+                <input type="text" placeholder="Search issues..." class="search-feild input input-bordered w-24 md:w-auto sm:max-md:w-full" />
+                <button class="new-issue-btn btn btn-primary w-fit">
+                    <span><i class="fa-solid fa-plus"></i></span>
+                    <span>New Issue</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="mt-15">
+
+        <!-- Part: 1 => Tab button -->
+        <div class="bg-white rounded-lg w-11/12 mx-auto p-6 shadow-sm">
+            <button class="btn py-4 px-10 btn-primary">ALL</button>
+            <button class="btn py-4 px-10 text-[#64748B]">Open</button>
+            <button class="btn py-4 px-10 text-[#64748B]">Closed</button>
+        </div>
+
+        <!-- Part: 2 => An icon, the issue count & some text -->
+        <div id="issueCountPart" class="mt-4 bg-white rounded-lg w-11/12 mx-auto p-6 shadow-sm flex justify-between items-center">
+            <!-- Content: 1 -->
+            <div class="issueCountContent-1 flex items-center gap-3">
+                <div class="bg-[#ECE4FF] p-2 rounded-full">
+                    <img src="./assets/Aperture.png" alt="">
+                </div>
+                <div>
+                    <h2 class="text-[#1F2937] text-xl font-semibold">
+                        <span id="count-issue-card">0</span> Issues
+                    </h2>
+                    <p class="text-[#64748B]">
+                        Track and manage your project issues
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Content: 2 -->
+            <div class="issueCountContent-2 flex items-center gap-3">
+                <p class="font-medium">
+                    <span class="text-[#00A96E]"><i class="fa-solid fa-circle"></i></span>
+                    Open
+                </p>
+                <p class="font-medium">
+                    <span class="text-[#A855F7]"><i class="fa-solid fa-circle"></i></span> Closed
+                </p>
+            </div>
+        </div>
+
+        <!-- Part: 3 => Issue cards section -->
+        <section id="issue-cards-container" 
+                class="w-11/12 mx-auto p-6 shadow-sm rounded-lg 
+                    grid grid-cols-4 gap-5
+                    sm:max-lg:grid-cols-2 lg:max-xl:grid-cols-3">
+            
+        </section>
+
+    </main>
+
+
+    <script src="./machine.js"></script>
+    <script src="./homepage.js"></script>
 </body>
 
 </html>
