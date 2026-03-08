@@ -1,25 +1,28 @@
 const cardContainer = document.getElementById('issue-cards-container');
 const totalIssueCard = document.getElementById('count-issue-card');
+const search = document.getElementById('search-input');
+const spinner = document.getElementById('loading-container');
 let currentStatus = 'all-issue-card';
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
     loadAllIssueCard();
 })
+
+function loadingSpinner(status) {
+    if(status === true) {
+        spinner.classList.remove('hidden');
+        cardContainer.classList.add('hidden');
+
+    } else {
+        spinner.classList.add('hidden');
+        cardContainer.classList.remove('hidden');
+    }
+}
 
 function toggleStyle(id) {
     currentStatus = id;
 
-    const allTab = document.getElementById('all-issue-card');
-    const openTab = document.getElementById('open-issue-card');
-    const closedTab = document.getElementById('close-issue-card');
-
-    allTab.classList.remove('btn-primary');
-    openTab.classList.remove('btn-primary');
-    closedTab.classList.remove('btn-primary');
-
-    allTab.classList.add('text-[#64748B]');
-    openTab.classList.add('text-[#64748B]');
-    closedTab.classList.add('text-[#64748B]');
+    removeActive();
 
     // condition matching clickable tab btn
     if (currentStatus === 'open-issue-card') {
@@ -27,13 +30,13 @@ function toggleStyle(id) {
         openTab.classList.remove('text-[#64748B]');
 
         loadAllIssueCard();
-        
+
     } else if (currentStatus === 'close-issue-card') {
         closedTab.classList.add('btn-primary');
         closedTab.classList.remove('text-[#64748B]');
 
         loadAllIssueCard();
-        
+
     } else if (currentStatus === 'all-issue-card') {
         allTab.classList.add('btn-primary');
         allTab.classList.remove('text-[#64748B]');
@@ -44,6 +47,8 @@ function toggleStyle(id) {
 
 // load all issue card data
 async function loadAllIssueCard() {
+    loadingSpinner(true);
+
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
 
     const res = await fetch(url);
@@ -334,6 +339,7 @@ function displayIssueCard(allCard) {
                 // Count all the issue cards and say how many cards there are.
                 totalIssueCard.textContent = cardContainer.children.length;
 
+                loadingSpinner(false);
             }
         })
 
@@ -472,6 +478,8 @@ function displayIssueCard(allCard) {
 
                 // Count all the issue cards and say how many cards there are.
                 totalIssueCard.textContent = cardContainer.children.length;
+
+                loadingSpinner(false);
             }
         })
 
@@ -609,6 +617,194 @@ function displayIssueCard(allCard) {
 
             // Count all the issue cards and say how many cards there are.
             totalIssueCard.textContent = cardContainer.children.length;
+
+            loadingSpinner(false);
         })
     }
+}
+
+
+search.addEventListener('input', function (event) {
+    const value = event.target.value.toLowerCase();
+
+    searchingIssuesCard(value);
+})
+
+const searchingIssuesCard = async (value) => {
+    loadingSpinner(true);
+
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const allCardInfo = data.data;
+
+    displaySearchingIssuesCard(allCardInfo);
+}
+
+function displaySearchingIssuesCard(allFilteredCard) {
+    removeActive();
+
+    cardContainer.innerHTML = '';
+
+    if (allFilteredCard.length === 0) {
+        const div = document.createElement('div');
+        div.className = `col-span-full font-poppins py-5 space-y-3`;
+        div.innerHTML = `
+            <div>
+                <img class="mx-auto" src="./assets/thinking-face.png" alt="">
+            </div>
+            <p class="text-xl text-center text-[#616161] font-medium">
+                There are no issue cards that match your current filters. Try removing some of them to get better
+                results.
+            </p>
+        `;
+
+        cardContainer.appendChild(div);
+
+        // Count all the issue cards and say how many cards there are.
+        totalIssueCard.textContent = 0;
+
+        loadingSpinner(false);
+
+        return;
+    }
+
+    allFilteredCard.forEach(issueCard => {
+        const isoDate = issueCard.createdAt;
+        const shortDate = new Date(isoDate).toLocaleDateString('en-US');
+        // console.log(shortDate);
+
+        let img = null;
+        let cardClass = '';
+
+        if (issueCard.status === 'open') {
+            img = `<img src="./assets/Open-Status.png" alt="">`;
+            cardClass = `border-[#00A96E]`
+        } else {
+            img = `<img src="./assets/Closed- Status .png" alt="">`;
+            cardClass = `border-[#A855F7]`;
+        }
+
+        let priorityClass = null;
+
+        if (issueCard.priority === 'high') {
+            priorityClass = `bg-[#FEECEC] text-[#EF4444]`;
+        } else if (issueCard.priority === 'medium') {
+            priorityClass = `bg-[#FFF6D1] text-[#F59E0B]`;
+        } else {
+            priorityClass = `text-[#9CA3AF] bg-[#EEEFF2]`;
+        }
+
+        // create a new card
+        const div = document.createElement('div');
+        div.className = `py-5 shadow-md border-t-4 ${cardClass} rounded-xl space-y-5`;
+        div.innerHTML = `
+                <!-- content: 1 -->
+                <div class="px-5 flex justify-between items-center">
+                    <div>
+                        ${img}
+                    </div>
+                    <div class="${priorityClass} border-none font-medium py-2 px-6 rounded-lg">
+                        ${(issueCard.priority).toUpperCase()}
+                    </div>
+                </div>
+
+                <!-- content: 2 -->
+                <div class="px-5 space-y-2">
+                    <h2 class="text-[#1F2937] text-lg font-semibold">
+                        ${issueCard.title}
+                    </h2>
+                    <p class="text-[#64748B] line-clamp-3">
+                        ${issueCard.description}
+                    </p>
+                </div>
+
+                <!-- content: 3 -->
+                <div class="label-container px-5 flex flex-wrap gap-2">
+                    
+                </div>
+
+                <!-- content: 4 -->
+                <hr class="text-[#bdbdbd]">
+
+                <!-- content: 5 -->
+                <div class="text-[#64748B] px-5 space-y-2">
+                    <p>#${issueCard.id} by ${issueCard.author}</p>
+                    <p>${shortDate}</p>
+                </div>
+                `;
+
+        // append the new card into the cardContainer
+        cardContainer.appendChild(div);
+
+        const labelContainer = div.querySelector('.label-container');
+        showLabel(labelContainer);
+
+        function showLabel(element) {
+            element.innerHTML = '';
+
+            issueCard.labels.forEach(label => {
+                if (label === 'bug') {
+                    const div = document.createElement('div');
+                    div.className = 'badge badge-outline badge-error text-sm font-medium h-auto py-1'
+                    div.innerHTML = `
+                        <span><i class="fa-solid fa-bug"></i></span>
+                        <span>BUG</span>
+                    `;
+
+                    element.appendChild(div);
+
+                } else if (label === 'help wanted') {
+                    const div = document.createElement('div');
+                    div.className = 'badge badge-outline badge-warning h-auto text-sm font-medium py-1'
+                    div.innerHTML = `
+                        <span><i class="fa-solid fa-life-ring"></i></span>
+                        <span>HELP WANTED</span>
+                    `;
+
+                    element.appendChild(div);
+
+                } else if (label === 'enhancement') {
+                    const div = document.createElement('div');
+                    div.className = 'badge badge-outline badge-accent h-auto text-sm font-medium py-1'
+                    div.innerHTML = `
+                        <span><img src="./assets/Sparkle.png"></span>
+                        <span>ENHANCEMENT</span>
+                    `;
+
+                    element.appendChild(div);
+
+                } else if (label === 'good first issue') {
+                    const div = document.createElement('div');
+                    div.className = 'badge badge-outline badge-info h-auto text-sm font-medium py-1'
+                    div.innerHTML = `
+                        <span><i class="fa-solid fa-circle-check"></i></span>
+                        <span>GOOD FIRST ISSUE</span>
+                    `;
+
+                    element.appendChild(div);
+
+                } else if (label === 'documentation') {
+                    // <div class="">Primary</div>
+                    const div = document.createElement('div');
+                    div.className = 'badge badge-soft badge-primary h-auto text-sm font-medium py-1'
+                    div.innerHTML = `
+                        <span><i class="fa-solid fa-book-open"></i></span>
+                        <span>DOCUMENTATION</span>
+                    `;
+
+                    element.appendChild(div);
+                }
+            })
+        }
+
+        div.onclick = () => loadDetails(issueCard.id, shortDate);
+
+        // Count all the issue cards and say how many cards there are.
+        totalIssueCard.textContent = cardContainer.children.length;
+
+        loadingSpinner(false);
+    })
 }
