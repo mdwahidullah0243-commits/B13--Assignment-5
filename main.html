@@ -52,9 +52,9 @@
 
         <!-- Part: 1 => Tab button -->
         <div class="bg-white rounded-lg w-11/12 mx-auto p-6 shadow-sm">
-            <button class="btn py-4 px-10 btn-primary">ALL</button>
-            <button class="btn py-4 px-10 text-[#64748B]">Open</button>
-            <button class="btn py-4 px-10 text-[#64748B]">Closed</button>
+            <button onclick="toggleStyle('all-issue-card')" id="all-issue-card" class="btn py-4 px-10 btn-primary">ALL</button>
+            <button onclick="toggleStyle('open-issue-card')" id="open-issue-card" class="btn py-4 px-10 text-[#64748B]">Open</button>
+            <button onclick="toggleStyle('close-issue-card')" id="close-issue-card" class="btn py-4 px-10 text-[#64748B]">Closed</button>
         </div>
 
         <!-- Part: 2 => An icon, the issue count & some text -->
