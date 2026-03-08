@@ -38,7 +38,8 @@
             </div>
 
             <div class="search-box flex gap-2 sm:max-md:flex-col-reverse items-end">
-                <input type="text" placeholder="Search issues..." class="search-feild input input-bordered w-24 md:w-auto sm:max-md:w-full" />
+                <input type="text" placeholder="Search issues..."
+                    class="search-feild input input-bordered w-24 md:w-auto sm:max-md:w-full" />
                 <button class="new-issue-btn btn btn-primary w-fit">
                     <span><i class="fa-solid fa-plus"></i></span>
                     <span>New Issue</span>
@@ -57,7 +58,8 @@
         </div>
 
         <!-- Part: 2 => An icon, the issue count & some text -->
-        <div id="issueCountPart" class="mt-4 bg-white rounded-lg w-11/12 mx-auto p-6 shadow-sm flex justify-between items-center">
+        <div id="issueCountPart"
+            class="mt-4 bg-white rounded-lg w-11/12 mx-auto p-6 shadow-sm flex justify-between items-center">
             <!-- Content: 1 -->
             <div class="issueCountContent-1 flex items-center gap-3">
                 <div class="bg-[#ECE4FF] p-2 rounded-full">
@@ -72,7 +74,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <!-- Content: 2 -->
             <div class="issueCountContent-2 flex items-center gap-3">
                 <p class="font-medium">
@@ -86,12 +88,28 @@
         </div>
 
         <!-- Part: 3 => Issue cards section -->
-        <section id="issue-cards-container" 
-                class="w-11/12 mx-auto p-6 shadow-sm rounded-lg 
+        <section id="issue-cards-container" class="w-11/12 mx-auto p-6 shadow-sm rounded-lg 
                     grid grid-cols-4 gap-5
                     sm:max-lg:grid-cols-2 lg:max-xl:grid-cols-3">
-            
+
         </section>
+
+        <!-- Part: 4 => Card Modal -->
+        <dialog id="issue-details" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+
+                <div id="modal-content" class="space-y-5">
+                    
+                </div>
+
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn btn-primary text-lg">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
 
     </main>
 
